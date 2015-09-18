@@ -1,0 +1,34 @@
+{
+  "name": "swagger-ui-browserify",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "gulp",
+    "pre-publish": "gulp"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "backbone": "^1.1.2",
+    "handlebars": "^2.0.0",
+    "highlight.js": "^7.5.0",
+    "jquery": "^1.9.1",
+    "jquery-bbq": "0.0.1",
+    "marked": "^0.3.5",
+    "swagger-client": "^2.1.4",
+    "swagger-ui": "2.1.1",
+    "underscore": "^1.7.0"
+  },
+  "devDependencies": {
+    "browserify": "^11.1.0",
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-declare": "^0.3.0",
+    "gulp-handlebars": "^4.0.0",
+    "gulp-replace": "^0.5.4",
+    "gulp-util": "^3.0.6",
+    "gulp-wrap": "^0.11.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}

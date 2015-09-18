@@ -1,0 +1,3 @@
+var Handlebars = require('handlebars')
+
+module.exports = Handlebars.template(<%= contents %>)

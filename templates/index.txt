@@ -1,0 +1,11 @@
+var $ = require('jquery')
+require('jquery-bbq')
+var Backbone = require('backbone')
+Backbone.$ = $
+var Handlebars = require('handlebars')
+var SwaggerClient = require('swagger-client')
+var marked = require('marked')
+var _ = require('underscore')
+var hljs = require('highlight.js')
+
+<%= contents %>

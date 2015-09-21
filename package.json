@@ -1,7 +1,7 @@
 {
   "name": "swagger-ui-browserify",
-  "version": "0.0.2",
-  "description": "",
+  "version": "2.1.3",
+  "description": "Use swagger-ui with browserify",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "gulp",
@@ -17,7 +17,7 @@
     "jquery-bbq": "0.0.1",
     "marked": "^0.3.5",
     "swagger-client": "^2.1.4",
-    "swagger-ui": "2.1.1",
+    "swagger-ui": "2.1.3",
     "underscore": "^1.7.0"
   },
   "devDependencies": {

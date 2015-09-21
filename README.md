@@ -2,6 +2,12 @@
 
 Use [swagger-ui](https://github.com/swagger-api/swagger-ui) with browserify.
 
+## Installation
+
+```sh
+$ npm install --save swagger-ui-browserify
+```
+
 ## Example
 
 ```javascript

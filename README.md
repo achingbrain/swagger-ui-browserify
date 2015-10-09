@@ -15,7 +15,7 @@ $ npm install --save swagger-ui-browserify@2.1.3a
 Version 2.0.24 (Swagger 1.2)
 
 ```sh
-$ npm install --save swagger-ui-browserify@2.0.24
+$ npm install --save swagger-ui-browserify@2.0.24a
 ```
 
 ## Example (version 2.1.3)

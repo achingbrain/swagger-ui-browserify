@@ -7,10 +7,13 @@ var source = require('vinyl-source-stream')
 var handlebars = require('gulp-handlebars')
 var declare = require('gulp-declare')
 var concat = require('gulp-concat')
+var coffee = require('gulp-coffee')
+var debug = require('gulp-debug')
 
 gulp.task('templates', function () {
   return gulp
     .src(['node_modules/swagger-ui/src/main/template/**/*'])
+    .pipe(debug({title: 'templates'}))
     .pipe(handlebars())
     .pipe(wrap({ src: './templates/template.txt'}))
     .pipe(gulp.dest('./dist/template'))
@@ -20,48 +23,47 @@ gulp.task('templates', function () {
 gulp.task('jquery-plugins', function () {
   return gulp
     .src([
-      //'node_modules/swagger-ui/lib/jquery.ba-bbq.min.js',
       'node_modules/swagger-ui/lib/jquery.slideto.min.js',
       'node_modules/swagger-ui/lib/jquery.wiggle.min.js'
     ])
+    .pipe(debug({title: 'jquery-plugins'}))
     .pipe(concat('jquery.plugins.js'))
-    .pipe(gulp.dest('./dist'))
+    .pipe(gulp.dest('./work'))
     .on('error', gutil.log)
 })
 
-gulp.task('wrap-files', function () {
+gulp.task('coffee', function() {
+  return gulp.src('node_modules/swagger-ui/src/main/coffeescript/**/*.coffee')
+    .pipe(debug({title: 'coffee'}))
+    .pipe(coffee({bare: true}).on('error', gutil.log))
+    .pipe(gulp.dest('work/coffee-to-js'))
+    .on('error', gutil.log)
+});
+
+gulp.task('concat-files', ['coffee'], function () {
   return gulp.src([
-    'node_modules/swagger-ui/src/main/javascript/helpers/*',
-    'node_modules/swagger-ui/src/main/javascript/*'
+    'work/coffee-to-js/**/*.js',
+    'node_modules/swagger-ui/src/main/javascript/**/*.js'
   ])
+    .pipe(debug({title: 'wrap-files'}))
     .pipe(replace(/window\.SwaggerUi\s+=/g, 'module.exports = SwaggerUi = '))
-    .pipe(replace(/module\.exports\s+=\s+factory\(require\('b'\)\);/g, ''))
-    .pipe(replace(/window\.SwaggerUi\.Views\s+=\s+{};/g, 'SwaggerUi.Views = {};'))
+    //.pipe(replace(/module\.exports\s+=\s+factory\(require\('b'\)\);/g, ''))
+    //.pipe(replace(/window\.SwaggerUi\.Views\s+=\s+{};/g, 'SwaggerUi.Views = {};'))
 
     .pipe(concat('swagger-ui.js'))
-    .pipe(gulp.dest('./dist'))
+    .pipe(gulp.dest('./work'))
     .on('error', gutil.log)
 })
 
-gulp.task('wrap-views', ['wrap-files'], function () {
+gulp.task('wrap', ['jquery-plugins', 'concat-files'], function () {
   return gulp.src([
-    'node_modules/swagger-ui/src/main/javascript/view/*'
+    './work/swagger-ui.js',
+    './work/views.js',
+    './work/jquery.plugins.js'
   ])
+    .pipe(debug({title: 'wrap'}))
     .pipe(replace(/Handlebars\.templates\.([a-z_]+)/g, 'require(\'./template/$1\')'))
-    .pipe(concat('views.js'))
-    .pipe(gulp.dest('./dist'))
-    .on('error', gutil.log)
-})
-
-gulp.task('wrap', ['jquery-plugins', 'wrap-views'], function () {
-  return gulp.src([
-    './dist/swagger-ui.js',
-    './dist/views.js',
-    './dist/jquery.plugins.js'
-  ])
     .pipe(concat('index.js'))
-    .pipe(replace(/Backbone\.View\.extend\({/g, 'Backbone.View.extend({options: {swaggerOptions: {}},'))
-    .pipe(replace(/window\.hljs/g, 'hljs'))
     .pipe(wrap({ src: './templates/index.txt'}))
     .pipe(gulp.dest('./dist'))
     .on('error', gutil.log)

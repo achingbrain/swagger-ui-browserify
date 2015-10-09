@@ -8,4 +8,6 @@ var marked = require('marked')
 var _ = require('underscore')
 var hljs = require('highlight.js')
 
+window.CookieAccessInfo = require('cookiejar').CookieAccessInfo
+
 <%= contents %>

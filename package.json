@@ -1,6 +1,6 @@
 {
   "name": "swagger-ui-browserify",
-  "version": "2.1.3a",
+  "version": "2.1.3b",
   "description": "Use swagger-ui with browserify",
   "repository": {
     "type": "git",

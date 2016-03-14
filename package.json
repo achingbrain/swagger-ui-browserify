@@ -1,6 +1,6 @@
 {
   "name": "swagger-ui-browserify",
-  "version": "2.0.24a",
+  "version": "2.0.24b",
   "description": "Use swagger-ui with browserify",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

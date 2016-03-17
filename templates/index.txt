@@ -1,5 +1,7 @@
-var $ = require('jquery')
+var $ = require('jquery1.8')
 require('jquery-bbq')
+require('jquery-slideto')
+require('jquery-wiggle')
 var Backbone = require('backbone')
 Backbone.$ = $
 var Handlebars = require('handlebars')
@@ -7,5 +9,6 @@ var SwaggerClient = require('swagger-client')
 var marked = require('marked')
 var _ = require('underscore')
 var hljs = require('highlight.js')
+var JSONEditor = require('jsoneditor')
 
 <%= contents %>

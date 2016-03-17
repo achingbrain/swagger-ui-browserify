@@ -20,12 +20,13 @@ gulp.task('templates', function () {
 gulp.task('jquery-plugins', function () {
   return gulp
     .src([
-      //'node_modules/swagger-ui/lib/jquery.ba-bbq.min.js',
+      'node_modules/swagger-ui/lib/jquery-1.8.0.min.js',
+      'node_modules/swagger-ui/lib/jquery.ba-bbq.min.js',
       'node_modules/swagger-ui/lib/jquery.slideto.min.js',
-      'node_modules/swagger-ui/lib/jquery.wiggle.min.js'
+      'node_modules/swagger-ui/lib/jquery.wiggle.min.js',
+      'node_modules/swagger-ui/lib/jsoneditor.min.js'
     ])
-    .pipe(concat('jquery.plugins.js'))
-    .pipe(gulp.dest('./dist'))
+    .pipe(gulp.dest('./dist/lib'))
     .on('error', gutil.log)
 })
 
@@ -56,8 +57,7 @@ gulp.task('wrap-views', ['wrap-files'], function () {
 gulp.task('wrap', ['jquery-plugins', 'wrap-views'], function () {
   return gulp.src([
     './dist/swagger-ui.js',
-    './dist/views.js',
-    './dist/jquery.plugins.js'
+    './dist/views.js'
   ])
     .pipe(concat('index.js'))
     .pipe(replace(/Backbone\.View\.extend\({/g, 'Backbone.View.extend({options: {swaggerOptions: {}},'))

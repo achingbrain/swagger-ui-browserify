@@ -47,9 +47,6 @@ gulp.task('concat-files', ['coffee'], function () {
   ])
     .pipe(debug({title: 'wrap-files'}))
     .pipe(replace(/window\.SwaggerUi\s+=/g, 'module.exports = SwaggerUi = '))
-    //.pipe(replace(/module\.exports\s+=\s+factory\(require\('b'\)\);/g, ''))
-    //.pipe(replace(/window\.SwaggerUi\.Views\s+=\s+{};/g, 'SwaggerUi.Views = {};'))
-
     .pipe(concat('swagger-ui.js'))
     .pipe(gulp.dest('./work'))
     .on('error', gutil.log)

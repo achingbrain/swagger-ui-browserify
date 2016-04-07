@@ -1,4 +1,4 @@
-var $ = require('jquery')
+var $ = jQuery = require('jquery')
 require('jquery-bbq')
 var Backbone = require('backbone')
 Backbone.$ = $

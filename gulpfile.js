@@ -1,14 +1,14 @@
-var gulp = require('gulp')
-var wrap = require('gulp-wrap')
-var gutil = require('gulp-util')
-var replace = require('gulp-replace')
-var browserify = require('browserify')
-var source = require('vinyl-source-stream')
-var handlebars = require('gulp-handlebars')
-var declare = require('gulp-declare')
-var concat = require('gulp-concat')
+const gulp = require('gulp')
+const wrap = require('gulp-wrap')
+const gutil = require('gulp-util')
+const replace = require('gulp-replace')
+const browserify = require('browserify')
+const source = require('vinyl-source-stream')
+const handlebars = require('gulp-handlebars')
+const declare = require('gulp-declare')
+const concat = require('gulp-concat')
 
-gulp.task('templates', function () {
+gulp.task('templates', () => {
   return gulp
     .src(['node_modules/swagger-ui/src/main/template/**/*'])
     .pipe(handlebars())
@@ -17,19 +17,19 @@ gulp.task('templates', function () {
     .on('error', gutil.log)
 })
 
-gulp.task('jquery-plugins', function () {
+gulp.task('jquery-plugins', () => {
   return gulp
     .src([
-      //'node_modules/swagger-ui/lib/jquery.ba-bbq.min.js',
       'node_modules/swagger-ui/lib/jquery.slideto.min.js',
-      'node_modules/swagger-ui/lib/jquery.wiggle.min.js'
+      'node_modules/swagger-ui/lib/jquery.wiggle.min.js',
+      'node_modules/swagger-ui/lib/jsoneditor.min.js'
     ])
     .pipe(concat('jquery.plugins.js'))
     .pipe(gulp.dest('./dist'))
     .on('error', gutil.log)
 })
 
-gulp.task('wrap-files', function () {
+gulp.task('wrap-files', () => {
   return gulp.src([
     'node_modules/swagger-ui/src/main/javascript/helpers/*',
     'node_modules/swagger-ui/src/main/javascript/*'
@@ -43,7 +43,7 @@ gulp.task('wrap-files', function () {
     .on('error', gutil.log)
 })
 
-gulp.task('wrap-views', ['wrap-files'], function () {
+gulp.task('wrap-views', ['wrap-files'], () => {
   return gulp.src([
     'node_modules/swagger-ui/src/main/javascript/view/*'
   ])
@@ -53,7 +53,7 @@ gulp.task('wrap-views', ['wrap-files'], function () {
     .on('error', gutil.log)
 })
 
-gulp.task('wrap', ['jquery-plugins', 'wrap-views'], function () {
+gulp.task('wrap', ['jquery-plugins', 'wrap-views'], () => {
   return gulp.src([
     './dist/swagger-ui.js',
     './dist/views.js',

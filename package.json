@@ -1,6 +1,6 @@
 {
   "name": "swagger-ui-browserify",
-  "version": "2.1.4a",
+  "version": "2.2.3a",
   "description": "Use swagger-ui with browserify",
   "repository": {
     "type": "git",
@@ -23,10 +23,13 @@
     "highlight.js": "^7.5.0",
     "jquery": "^1.9.1",
     "jquery-bbq": "1.0.0",
+		"js-yaml": "^3.6.1",
+    "lodash": "~3.10.1",
     "marked": "^0.3.5",
+    "object-assign": "^4.1.0",
+    "sanitize-html": "^1.13.0",
     "swagger-client": "^2.1.4",
-    "swagger-ui": "2.1.4",
-    "underscore": "^1.7.0"
+    "swagger-ui": "2.2.3"
   },
   "devDependencies": {
     "browserify": "^11.1.0",

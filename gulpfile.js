@@ -32,11 +32,18 @@ gulp.task('jquery-plugins', () => {
 gulp.task('wrap-files', () => {
   return gulp.src([
     'node_modules/swagger-ui/src/main/javascript/helpers/*',
-    'node_modules/swagger-ui/src/main/javascript/*'
+    'node_modules/swagger-ui/src/main/javascript/*',
+    'node_modules/swagger-ui/src/main/javascript/utils/*'
   ])
     .pipe(replace(/window\.SwaggerUi\s+=/g, 'module.exports = SwaggerUi = '))
     .pipe(replace(/module\.exports\s+=\s+factory\(require\('b'\)\);/g, ''))
     .pipe(replace(/window\.SwaggerUi\.Views\s+=\s+{};/g, 'SwaggerUi.Views = {};'))
+    .pipe(replace(/window\.SwaggerUi\.Models\s+=\s+{};/g, 'SwaggerUi.Models = {};'))
+    .pipe(replace(/window\.SwaggerUi\.Collections\s+=\s+{};/g, 'SwaggerUi.Collections = {};'))
+    .pipe(replace(/window\.SwaggerUi\.partials\s+=\s+{};/g, 'SwaggerUi.partials = {};'))
+    .pipe(replace(/window\.SwaggerUi\.utils\s+=\s+{};/g, 'SwaggerUi.utils = {};'))
+    .pipe(replace(/window\.SwaggerUi\.utils\s+=\s+{\n/g, 'SwaggerUi.utils = {\n'))
+    .pipe(replace(/window\.SwaggerUi\.utils;/g, 'SwaggerUi.utils;'))
 
     .pipe(concat('swagger-ui.js'))
     .pipe(gulp.dest('./dist'))
@@ -45,9 +52,10 @@ gulp.task('wrap-files', () => {
 
 gulp.task('wrap-views', ['wrap-files'], () => {
   return gulp.src([
-    'node_modules/swagger-ui/src/main/javascript/view/*'
+    'node_modules/swagger-ui/src/main/javascript/view/*',
+    'node_modules/swagger-ui/src/main/javascript/view/partials/*'
   ])
-    .pipe(replace(/Handlebars\.templates\.([a-z_]+)/g, 'require(\'./template/$1\')'))
+    .pipe(replace(/Handlebars\.templates\.([a-z_0-9]+)/g, 'require(\'./template/$1\')'))
     .pipe(concat('views.js'))
     .pipe(gulp.dest('./dist'))
     .on('error', gutil.log)

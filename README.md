@@ -20,7 +20,8 @@ $ npm install --save swagger-ui-browserify
 // in your app.js file
 var SwaggerUi = require('swagger-ui-browserify')
 
-var swaggerUi = new SwaggerUi({
+// SwaggerUI expects there to be a `swaggerUi` property on the window object :(
+window.swaggerUi = new SwaggerUi({
   url: '/apidocs',
   dom_id: 'swagger-ui-container',
   supportHeaderParams: true,
@@ -34,7 +35,7 @@ var swaggerUi = new SwaggerUi({
   operationsSorter: 'alpha',
   docExpansion: 'none'
 })
-swaggerUi.load()
+window.swaggerUi.load()
 ```
 
 ## jQuery & Handlebars

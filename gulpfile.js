@@ -40,16 +40,9 @@ gulp.task('wrap-files', () => {
     'node_modules/swagger-ui/src/main/javascript/*',
     'node_modules/swagger-ui/src/main/javascript/utils/*'
   ])
-    .pipe(replace(/window\.SwaggerUi\s+=/g, 'module.exports = SwaggerUi = '))
+    .pipe(replace(/window\.SwaggerUi\s+=/g, 'module.exports = SwaggerUi ='))
     .pipe(replace(/module\.exports\s+=\s+factory\(require\('b'\)\);/g, ''))
-    .pipe(replace(/window\.SwaggerUi\.Views\s+=\s+{};/g, 'SwaggerUi.Views = {};'))
-    .pipe(replace(/window\.SwaggerUi\.Models\s+=\s+{};/g, 'SwaggerUi.Models = {};'))
-    .pipe(replace(/window\.SwaggerUi\.Collections\s+=\s+{};/g, 'SwaggerUi.Collections = {};'))
-    .pipe(replace(/window\.SwaggerUi\.partials\s+=\s+{};/g, 'SwaggerUi.partials = {};'))
-    .pipe(replace(/window\.SwaggerUi\.utils\s+=\s+{};/g, 'SwaggerUi.utils = {};'))
-    .pipe(replace(/window\.SwaggerUi\.utils\s+=\s+{\n/g, 'SwaggerUi.utils = {\n'))
-    .pipe(replace(/window\.SwaggerUi\.utils;/g, 'SwaggerUi.utils;'))
-
+    .pipe(replace(/window\.SwaggerUi\./g, 'SwaggerUi.'))
     .pipe(concat('swagger-ui.js'))
     .pipe(gulp.dest('./dist'))
     .on('error', gutil.log)
@@ -85,18 +78,16 @@ gulp.task('wrap', ['jquery-plugins', 'wrap-views'], () => {
 gulp.task('test-setup', ['templates', 'wrap'], () => {
   var b = browserify({
     entries: './test/fixtures/public/index.js',
-    debug: true// ,
-    // defining transforms here will avoid crashing your stream
-    // transform: [reactify]
+    debug: true
   })
 
   return b.bundle()
     .pipe(source('index.bundle.js'))
     .pipe(buffer())
     .pipe(sourcemaps.init({loadMaps: true}))
-        // Add transformation tasks to the pipeline here.
-        .pipe(uglify())
-        .on('error', gutil.log)
+    // Add transformation tasks to the pipeline here.
+    .pipe(uglify())
+    .on('error', gutil.log)
     .pipe(sourcemaps.write('./test/fixtures/public'))
     .pipe(gulp.dest('./test/fixtures/public'))
 })

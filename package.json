@@ -1,6 +1,6 @@
 {
   "name": "swagger-ui-browserify",
-  "version": "2.2.3a",
+  "version": "2.2.3",
   "description": "Use swagger-ui with browserify",
   "repository": {
     "type": "git",
@@ -10,7 +10,7 @@
     "url": "https://github.com/achingbrain/swagger-ui-browserify/issues"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "gulp test-setup && cucumber.js test/features",
     "build": "gulp",
     "pre-publish": "gulp"
   },
@@ -23,7 +23,7 @@
     "highlight.js": "^7.5.0",
     "jquery": "^1.9.1",
     "jquery-bbq": "1.0.0",
-		"js-yaml": "^3.6.1",
+    "js-yaml": "^3.6.1",
     "lodash": "~3.10.1",
     "marked": "^0.3.5",
     "object-assign": "^4.1.0",
@@ -33,13 +33,24 @@
   },
   "devDependencies": {
     "browserify": "^11.1.0",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^5.3.0",
+    "chromedriver": "^2.23.1",
+    "cucumber": "^1.2.2",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",
     "gulp-declare": "^0.3.0",
     "gulp-handlebars": "^4.0.0",
     "gulp-replace": "^0.5.4",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^2.0.0",
     "gulp-util": "^3.0.6",
     "gulp-wrap": "^0.11.0",
+    "http-server": "^0.9.0",
+    "selenium-webdriver": "^2.53.3",
+    "standard": "^8.0.0",
+    "tamarin-world": "0.0.31",
+    "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   }
 }

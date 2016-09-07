@@ -7,12 +7,17 @@ const source = require('vinyl-source-stream')
 const handlebars = require('gulp-handlebars')
 const declare = require('gulp-declare')
 const concat = require('gulp-concat')
+const buffer = require('vinyl-buffer')
+const sourcemaps = require('gulp-sourcemaps')
+const uglify = require('gulp-uglify')
 
 gulp.task('templates', () => {
   return gulp
     .src(['node_modules/swagger-ui/src/main/template/**/*'])
     .pipe(handlebars())
-    .pipe(wrap({ src: './templates/template.txt'}))
+    .pipe(wrap({
+      src: './templates/template.txt'
+    }))
     .pipe(gulp.dest('./dist/template'))
     .on('error', gutil.log)
 })
@@ -70,9 +75,30 @@ gulp.task('wrap', ['jquery-plugins', 'wrap-views'], () => {
     .pipe(concat('index.js'))
     .pipe(replace(/Backbone\.View\.extend\({/g, 'Backbone.View.extend({options: {swaggerOptions: {}},'))
     .pipe(replace(/window\.hljs/g, 'hljs'))
-    .pipe(wrap({ src: './templates/index.txt'}))
+    .pipe(wrap({
+      src: './templates/index.txt'
+    }))
     .pipe(gulp.dest('./dist'))
     .on('error', gutil.log)
+})
+
+gulp.task('test-setup', ['templates', 'wrap'], () => {
+  var b = browserify({
+    entries: './test/fixtures/public/index.js',
+    debug: true// ,
+    // defining transforms here will avoid crashing your stream
+    // transform: [reactify]
+  })
+
+  return b.bundle()
+    .pipe(source('index.bundle.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({loadMaps: true}))
+        // Add transformation tasks to the pipeline here.
+        .pipe(uglify())
+        .on('error', gutil.log)
+    .pipe(sourcemaps.write('./test/fixtures/public'))
+    .pipe(gulp.dest('./test/fixtures/public'))
 })
 
 gulp.task('default', ['templates', 'wrap'])

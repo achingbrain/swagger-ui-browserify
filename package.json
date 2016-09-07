@@ -11,7 +11,7 @@
   },
   "scripts": {
     "test": "gulp test-setup && cucumber.js test/features",
-    "build": "gulp",
+    "lint": "standard",
     "prepublish": "gulp"
   },
   "author": "",
@@ -47,10 +47,21 @@
     "gulp-util": "^3.0.6",
     "gulp-wrap": "^0.11.0",
     "http-server": "^0.9.0",
+    "pre-commit": "^1.1.3",
     "selenium-webdriver": "^2.53.3",
     "standard": "^8.0.0",
     "tamarin-world": "0.0.31",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
-  }
+  },
+  "standard": {
+    "ignore": [
+      "dist/**",
+      "test/fixtures/public/index.bundle.js"
+    ]
+  },
+  "pre-commit": [
+    "lint",
+    "test"
+  ]
 }

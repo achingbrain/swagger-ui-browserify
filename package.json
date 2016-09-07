@@ -12,7 +12,7 @@
   "scripts": {
     "test": "gulp test-setup && cucumber.js test/features",
     "build": "gulp",
-    "pre-publish": "gulp"
+    "prepublish": "gulp"
   },
   "author": "",
   "license": "ISC",

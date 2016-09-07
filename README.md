@@ -1,5 +1,7 @@
 # swagger-ui-browserify
 
+[![Build Status](https://travis-ci.org/achingbrain/swagger-ui-browserify.svg?branch=master)](https://travis-ci.org/achingbrain/swagger-ui-browserify)
+
 Use [swagger-ui](https://github.com/swagger-api/swagger-ui) with browserify.
 
 Supports version 2.1.4 and 2.0.24. Why?  Because 2.1.3 tries to convert a Swagger 1.2 into a Swagger 2 definition and it's not always a one-to-one mapping - for example see [OAI/OpenAPI-Specification#182](https://github.com/OAI/OpenAPI-Specification/issues/182).

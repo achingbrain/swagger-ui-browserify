@@ -67,9 +67,26 @@ gulp.task('wrap', ['jquery-plugins', 'wrap-views'], () => {
     .pipe(concat('index.js'))
     .pipe(replace(/Backbone\.View\.extend\({/g, 'Backbone.View.extend({options: {swaggerOptions: {}},'))
     .pipe(replace(/window\.hljs/g, 'hljs'))
-    .pipe(wrap({
-      src: './templates/index.txt'
-    }))
+
+    .pipe(replace(/window\.swaggerUi\.api\.authSchemes/g, 'router.api.authSchemes'))
+    .pipe(replace(/window\.swaggerUi\.api\.securityDefinitions/g, 'router.api.securityDefinitions'))
+    .pipe(replace(/window\.swaggerUi\.api\.clientAuthorizations\.authz/g, 'this.router.api.clientAuthorizations.authz'))
+    .pipe(replace(/window\.swaggerUi\.api\.clientAuthorizations\.remove/g, 'this.router.api.clientAuthorizations.remove'))
+    .pipe(replace(/window\.swaggerUi\.api\.clientAuthorizations\.add\(auth/g,
+      'this.router.api.clientAuthorizations.add(auth'))
+
+    .pipe(replace(/Definitions\(authsModel\)/g, 'Definitions(authsModel, this.router || this)'))
+    .pipe(replace(/Definitions: function \(security\)/g, 'Definitions: function (security, router)'))
+    .pipe(replace(/Definitions\(this\.model\.security/g, 'Definitions(this.model.security, this.router'))
+
+    .pipe(replace(/\{data:\s+opts\.data\s*}/g, '{data: opts.data, router: this.router}'))
+    .pipe(replace(/remove\(auth\.get\('title'\)\);\n\s+}/g, 'remove(auth.get(\'title\'));\n        }, this'))
+    .pipe(replace(/AuthsCollection\(opts\.data/g, 'AuthsCollection(opts.data, this.router'))
+
+    .pipe(replace(/constructor: function\(\) \{\n\s*var args = Array\.prototype\.slice\.call\(arguments\);/g,
+      'constructor: function() {\n    var args = Array.prototype.slice.call(arguments);\n    this.router = arguments[1];'))
+
+    .pipe(wrap({src: './templates/index.txt'}))
     .pipe(gulp.dest('./dist'))
     .on('error', gutil.log)
 })

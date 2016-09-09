@@ -2,7 +2,7 @@ console.info('yess!')
 
 const SwaggerUi = require('../../../dist')
 
-window.swaggerUi = new SwaggerUi({
+const swaggerUi = new SwaggerUi({
   url: 'http://petstore.swagger.io/v2/swagger.json',
   dom_id: 'swagger-ui-container',
   supportHeaderParams: true,
@@ -16,4 +16,4 @@ window.swaggerUi = new SwaggerUi({
   operationsSorter: 'alpha',
   docExpansion: 'none'
 })
-window.swaggerUi.load()
+swaggerUi.load()

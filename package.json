@@ -29,7 +29,7 @@
     "object-assign": "^4.1.0",
     "sanitize-html": "^1.13.0",
     "swagger-client": "^2.1.4",
-    "swagger-ui": "2.2.3"
+    "swagger-ui": "2.2.10"
   },
   "devDependencies": {
     "browserify": "^11.1.0",
